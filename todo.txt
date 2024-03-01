@@ -1,0 +1,2 @@
+Refactor the code into different screens
+Code to switch screens when keyboard is used

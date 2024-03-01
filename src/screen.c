@@ -43,6 +43,7 @@ void run_screens() {
 
     // Call the update function to determine the next screen
     int next_screen_id = current_screen->update();
+    current_screen->draw();
     if (next_screen_id != -1 && next_screen_id < num_screens && next_screen_id != current_screen_index) {
         // Only update the screen index if it's different from the current one
         current_screen_index = next_screen_id;

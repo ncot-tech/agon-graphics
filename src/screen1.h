@@ -1,6 +1,7 @@
 #ifndef SCREEN1_H
 #define SCREEN1_H
 
+#include <mos_api.h>
 #include "screen.h"
 
 // Function prototypes for Screen 1
