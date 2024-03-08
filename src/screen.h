@@ -15,6 +15,7 @@ typedef struct Screen Screen;
 extern volatile SYSVAR *sv;
 
 // Function prototypes for screen-related functions
+void set_current_screen(int screen_id);
 void define_screen(void (*init)(void), int (*update)(void), void (*draw)(void)); 
 void run_screens(void);
 #endif /* SCREEN_H */

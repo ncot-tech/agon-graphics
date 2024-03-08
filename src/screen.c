@@ -1,6 +1,7 @@
 #include "screen.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Define a type for each screen
 struct Screen {
@@ -13,7 +14,7 @@ struct Screen {
 // Define an array of screens
 Screen *screens[MAX_SCREENS];
 int num_screens = 0;
-
+int current_screen_index = 0;
 // Function to define screen
 void define_screen(void (*init)(void), int (*update)(void), void (*draw)(void)) {
     // Check if there's still space in the array
@@ -31,14 +32,26 @@ void define_screen(void (*init)(void), int (*update)(void), void (*draw)(void)) 
     }
 }
 
+void set_current_screen(int screen_id)
+{
+    current_screen_index = screen_id;
+}
+
 // Function to execute the next screen based on the current screen's update function
 void run_screens() {
-    static int current_screen_index = 0;
-    
+    static bool first_run = true;
     // Get the current screen
     Screen *current_screen = screens[current_screen_index];
     if (current_screen == NULL || current_screen->update == NULL) {
         return; // Invalid current screen
+    }
+
+    if (first_run) {
+        first_run = false;
+        // Call the init function if needed
+        if (current_screen->init != NULL) {
+            current_screen->init();
+        }
     }
 
     // Call the update function to determine the next screen

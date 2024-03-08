@@ -10,3 +10,4 @@ set shiftwidth=4
 " Make the backspace jump back 4 characters instead of individual spaces
 set softtabstop=4
 
+highlight MatchParen ctermfg=red ctermbg=none gui=underline
