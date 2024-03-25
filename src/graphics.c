@@ -252,3 +252,8 @@ void vdp_plot_rect(uint8_t colour, uint16_t x, uint16_t y, uint16_t w, uint16_t 
     putch(25); putch(97); write16bit(w); write16bit(h);
 }
 
+void vdp_plot_bitmap(uint16_t buffer_id, uint16_t x, uint16_t y)
+{
+    putch(23); putch(27); putch(0x20); write16bit(buffer_id);
+    putch(25); putch(0xED); write16bit(x); write16bit(y);
+}

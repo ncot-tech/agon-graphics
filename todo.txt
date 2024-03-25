@@ -1,2 +1,5 @@
-Write starfield
+Remember how to load graphics in again
+Draw my logo on the screen
+Make my logo move
+Have multiples
 Code to switch screens when keyboard is used

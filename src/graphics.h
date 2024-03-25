@@ -62,5 +62,5 @@ void split_into_cols_from(uint16_t buffer_id, uint16_t width, uint16_t cols,
               uint16_t from);
 void assign_buffer_to_bitmap(uint16_t buffer_id, BITMAP_FORMAT bitmap_format,
                  uint16_t width, uint16_t height);
-
+void vdp_plot_bitmap(uint16_t buffer_id, uint16_t x, uint16_t y);
 #endif
