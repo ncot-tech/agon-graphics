@@ -6,22 +6,15 @@
 
 void draw_colour_bars()
 {
-    uint8_t startx = 16;
-    uint8_t starty = 40;
-    uint8_t gap = 8; 
-    uint8_t size = 8;
-    static int x = 0;
-    static int y = 0;
-    static uint32_t timer1 = 0;
-    static int c = 0;
-    
-    if (y == 8) return;
-    if (sv->time >= timer1) {    
-        vdp_plot_rect(c, startx+(x*(size+gap)), starty+(y*(size+gap)), size, size);
-        c++;
-        x++;
-        timer1 = sv->time + 10;
-        if (x == 8) { x = 0; y++; }
+    uint8_t startx = 32;
+    uint8_t starty = 208;
+    uint8_t gap = 12; 
+    uint8_t size = 56;
+    int c = 0;
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            vdp_plot_rect(c++, startx+(x*(size+gap)), SCREEN_HEIGHT-(starty+(y*(size+gap))), size, size);
+        }
     }
 }
 
@@ -38,19 +31,16 @@ void draw_palette()
 
 // Define functions for Screen 1
 void screen1_init(void) {
-    printf("Initializing Screen 1...\n");
 }
 
 int screen1_update(void) {
-    printf("Updating Screen 1...\n");
-    // Example: Switch to next screen if a condition is met
-    if (1) {
-        return 1; // ID of the next screen
-    }
+//    if (1) {
+//        return 1; // ID of the next screen
+//    }
     return -1; // Continue with the current screen
 }
 
 void screen1_draw(void) {
-    printf("Drawing Screen 1...\n");
+    draw_palette();
 }
 

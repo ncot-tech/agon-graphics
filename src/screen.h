@@ -3,8 +3,8 @@
 
 #include <mos_api.h>
 
-#define SC_WIDTH 1280
-#define SC_HEIGHT 1024
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 1024
 
 // Forward declaration of Screen struct
 struct Screen;

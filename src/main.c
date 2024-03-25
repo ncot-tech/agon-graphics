@@ -9,6 +9,7 @@
 #include "screen1.h"
 #include "screen2.h"
 #include "screen3.h"
+#include "screen4.h"
 
 // https://github.com/AgonConsole8/agon-docs/blob/main/VDP---Screen-Modes.md
 #define SC_MODE 136
@@ -29,8 +30,9 @@ int main(void)
     define_screen(screen1_init, screen1_update, screen1_draw);
     define_screen(screen2_init, screen2_update, screen2_draw);
     define_screen(screen3_init, screen3_update, screen3_draw);
+    define_screen(screen4_init, screen4_update, screen4_draw);
 
-    set_current_screen(2);
+    set_current_screen(3);
 
     //putch(19); putch(0); putch(255); putch(255);putch(0);putch(0); 
     while (1) {

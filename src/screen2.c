@@ -78,7 +78,7 @@ void draw_shape(Shape shape, uint8_t colour) {
 // Define functions for Screen 1
 void screen2_init(void) {
     for (int i = 0; i < 10; i++) {
-        shapes[i] = make_shape(rand() % 7 + 3, (SC_WIDTH / 2 - 600) + (rand() % 1200), (SC_HEIGHT / 2 - 400) + (rand() % 800), rand() % 100 + 50);
+        shapes[i] = make_shape(rand() % 7 + 3, (SCREEN_WIDTH / 2 - 600) + (rand() % 1200), (SCREEN_HEIGHT / 2 - 400) + (rand() % 800), rand() % 100 + 50);
     }
 }
 
@@ -89,15 +89,10 @@ int screen2_update(void) {
     angle += rotation_speed;
     if (angle >= 360) angle -= 360;
 
-    // Example: Switch to next screen if a condition is met
-    if (0) {
-        return 0; // ID of the next screen
-    }
     return -1; // Continue with the current screen
 }
 
 void screen2_draw(void) {
-    printf("Drawing screen 2\n");
     for (int i = 0; i < 10; i++) {
         draw_shape(shapes[i], colour);
     }

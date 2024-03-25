@@ -4,11 +4,7 @@
 #include <mos_api.h>
 #include "graphics.h"
 #include <agon/vdp_vdu.h>
-#include <math.h>
-
-typedef struct vector2 {
-    float x, y;
-} vector2;
+#include "maths_utils.h"
 
 typedef struct line {
     Point start, end;
@@ -21,13 +17,6 @@ typedef struct poly {
 }poly;
 
 poly mystify[3] = {0};
-
-// Function to normalize a vector
-void normalise_vector(vector2 *v) {
-    float magnitude = sqrt((v->x) * (v->x) + (v->y) * (v->y));
-    v->x /= magnitude;
-    v->y /= magnitude;
-}
 
 // Function to calculate five points moving backwards down the vector (u, v)
 Point calculate_point_along_vector(Point p1, vector2 v) {
@@ -45,10 +34,6 @@ Point calculate_point_along_vector(Point p1, vector2 v) {
 void draw_line2(line _line, int colour)
 {
     draw_line(_line.start.x, _line.start.y, _line.end.x, _line.end.y, colour);
-}
-
-int rand_between(int min, int max) {
-    return min + rand() % (max - min + 1);
 }
 
 void screen3_init(void) {

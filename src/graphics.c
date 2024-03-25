@@ -40,6 +40,13 @@ draw_line(uint16_t origin_x, uint16_t origin_y, uint16_t end_x,
 
 }
 
+void plot_circle(uint16_t x, uint16_t y, uint16_t diameter, uint8_t colour)
+{
+    putch(18); putch(0); putch(colour);
+    putch(25); putch(4); write16bit(x); write16bit(y);
+    putch(25); putch(153); write16bit(0); write16bit(diameter);
+}
+
 void draw_triangle(Point p1, Point p2, Point p3, uint8_t colour)
 {
     putch(18); putch(0); putch(colour);
