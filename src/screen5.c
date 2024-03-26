@@ -14,7 +14,7 @@ typedef struct Sprite {
 } Sprite;
 
 Sprite logos[LOGO_COUNT];
-font my_font;
+static font my_font;
 Point origin;
 
 void screen5_init(void) {
