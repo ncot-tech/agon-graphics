@@ -14,7 +14,8 @@ typedef struct font {
     uint8_t start_bitmap_id;
 } font;
 
+void bm_put_char(font *font, int16_t screenx, int16_t screeny, char c);
 uint8_t bm_load_font(char *font_def, font *font, uint16_t bitmap_id);
-void bm_put_string(font *font, uint8_t screenx, uint8_t screeny, char *s);
-void bm_printf(font *font, uint8_t screenx, uint8_t screeny, char *format, ...);
+void bm_put_string(font *font, int16_t screenx, int16_t screeny, char *s);
+void bm_printf(font *font, int16_t screenx, int16_t screeny, char *format, ...);
 #endif

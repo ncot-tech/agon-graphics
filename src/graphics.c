@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void write16bit(uint16_t w)
+void write16bit(int16_t w)
 {
     putch(w & 0xFF);    // write LSB
-    putch(w >> 8);        // write MSB    
+    putch((w >> 8) & 0xFF);        // write MSB    
 }
 
 void set_video_mode(uint8_t mode)
@@ -19,9 +19,14 @@ void flip_buffer()
     putch(23); putch(0); putch(0xC3);
 }
 
+void vdp_move_origin(int16_t x, int16_t y)
+{
+    putch(29); write16bit(x); write16bit(y);
+}
+
 void
-draw_line(uint16_t origin_x, uint16_t origin_y, uint16_t end_x,
-      uint16_t end_y, uint8_t colour)
+draw_line(int16_t origin_x, int16_t origin_y, int16_t end_x,
+      int16_t end_y, uint8_t colour)
 {
 
     putch(18);
@@ -252,7 +257,7 @@ void vdp_plot_rect(uint8_t colour, uint16_t x, uint16_t y, uint16_t w, uint16_t 
     putch(25); putch(97); write16bit(w); write16bit(h);
 }
 
-void vdp_plot_bitmap(uint16_t buffer_id, uint16_t x, uint16_t y)
+void vdp_plot_bitmap(uint16_t buffer_id, int16_t x, int16_t y)
 {
     putch(23); putch(27); putch(0x20); write16bit(buffer_id);
     putch(25); putch(0xED); write16bit(x); write16bit(y);

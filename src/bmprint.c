@@ -71,7 +71,14 @@ uint8_t bm_load_font(char *font_def, font *font, uint16_t bitmap_id)
 
     return 0;
 }
-void bm_put_string(font *font, uint8_t screenx, uint8_t screeny, char *s)
+
+void bm_put_char(font *font, int16_t screenx, int16_t screeny, char c)
+{
+    int id = ((c-32) <= 58) ? (c-32) : 10;
+    vdp_plot_bitmap(font->start_bitmap_id + id, screenx, screeny);
+}
+
+void bm_put_string(font *font, int16_t screenx, int16_t screeny, char *s)
 {
     char *currentChar = s;
     int xpos = 0;
@@ -90,7 +97,7 @@ void bm_put_string(font *font, uint8_t screenx, uint8_t screeny, char *s)
     }
 }
 
-void bm_printf(font *font, uint8_t screenx, uint8_t screeny, char *format, ...)
+void bm_printf(font *font, int16_t screenx, int16_t screeny, char *format, ...)
 {
     char tmpStr[33];
     int xpos = 0;
