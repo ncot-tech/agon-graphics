@@ -12,11 +12,10 @@
 #include "screen4.h"
 #include "screen5.h"
 #include "screen6.h"
-#include "tilemap.h"
-
+#include "keyboard.h"
 // https://github.com/AgonConsole8/agon-docs/blob/main/VDP---Screen-Modes.md
-#define SC_MODE 136
-//#define SC_MODE 8
+//#define SC_MODE 136
+#define SC_MODE 8
 
 volatile SYSVAR *sv;
 
@@ -30,7 +29,8 @@ int main(void)
     vdp_clear_screen();
     vdp_logical_scr_dims( true );
     vdp_cursor_enable( false );
-
+    init_keys();
+    
     define_screen(screen1_init, screen1_update, screen1_draw);
     define_screen(screen2_init, screen2_update, screen2_draw);
     define_screen(screen3_init, screen3_update, screen3_draw);
@@ -42,12 +42,13 @@ int main(void)
 
     //putch(19); putch(0); putch(255); putch(255);putch(0);putch(0); 
     while (1) {
-        vdp_clear_screen();
+        update_keys();
+ //       vdp_clear_screen();
 
         run_screens();
 
         waitvblank();
-        flip_buffer();
+//        flip_buffer();
     }
 
     return 0;

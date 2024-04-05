@@ -15,6 +15,7 @@ def parse_csv_string(csv_string):
     reader = csv.reader(csv_file)
     for row in reader:
         data = row
+
     return data
 
 def parse_tsx(xml_file):
@@ -63,7 +64,22 @@ def parse_tmx(xml_file):
     map_data['map_height'] = int(map_attributes['height'])
     map_data['tile_width'] = int(map_attributes['tilewidth'])
     map_data['tile_height'] = int(map_attributes['tileheight'])
-    map_data['map_data'] = parse_csv_string(csv_data)
+    raw_map_data = parse_csv_string(csv_data)
+
+    # Flip the map upside down because OS co-ords on the Agon are upside-down
+    mw = map_data['map_width']
+    mh = map_data['map_height']
+
+    map_data['map_data'] = []
+    for i in range(mh-1,-1,-1):
+        row_start_index = i * mw
+        row_data = []
+        for j in range(mw):
+            index = row_start_index + j
+            row_data.append(raw_map_data[index])
+        map_data['map_data'].extend(row_data)
+
+    print(map_data['map_data'])
 
     return map_data
 

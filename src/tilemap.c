@@ -61,25 +61,34 @@ void tilemap_load(char *map_def, tilemap *map)
 // For now assuming all maps are one screen tall
 void tilemap_draw(tilemap *map, uint16_t x_start, uint8_t scroll_amount)
 {
+    int tw4 = map->tile_width*4;
+    int th4 = map->tile_height*4.3;
+    
     for (int y = 0; y < map->map_height ; y++) {
         for (int x = 0; x < 20; x++) {
-
-            // All this crap maths needs optimising out somehow
             vdp_plot_bitmap(map->bitmap_start_id+map->map_data[x_start + x + y * map->map_width],
-                (x*map->tile_width*4),
-                (1024-(map->tile_height*4))-(y*map->tile_height * 4));
+                (x*tw4),
+                (y*th4));
         }
     }
 
-    if (scroll_amount > 0) {
+  /*  if (scroll_amount > 0) {
         putch(23); putch(7); putch(3); putch(1); putch(scroll_amount);
 
         for (int y = 0; y < map->map_height; y++) {
             vdp_plot_bitmap(map->bitmap_start_id+map->map_data[x_start + 20 + y * map->map_width],
-                (1280-scroll_amount*4),
-                (1024-(map->tile_height*4))-(y*map->tile_height * 4));
+                (1280-(scroll_amount*4)),
+                (y*th4));
         }
-    }
+    }*/
+}
+
+uint16_t tilemap_get_tileid(tilemap *map, uint16_t screen_x, uint16_t screen_y, uint8_t scroll_amount, uint16_t x_start)
+{
+    uint16_t tx = (screen_x+scroll_amount) / 64;
+    uint16_t ty = screen_y / 64;
+    
+    return map->map_data[x_start + tx + ty * map->map_width];
 }
 
 /*

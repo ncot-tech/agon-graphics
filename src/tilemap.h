@@ -18,4 +18,5 @@ typedef struct tilemap {
 
 void tilemap_load(char *map_def, tilemap *map);
 void tilemap_draw(tilemap *map, uint16_t x_start, uint8_t scroll_amount);
+uint16_t tilemap_get_tileid(tilemap *map, uint16_t screen_x, uint16_t screen_y, uint8_t scroll_amount, uint16_t x_start);
 #endif
