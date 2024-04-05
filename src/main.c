@@ -12,9 +12,11 @@
 #include "screen4.h"
 #include "screen5.h"
 #include "screen6.h"
+#include "tilemap.h"
 
 // https://github.com/AgonConsole8/agon-docs/blob/main/VDP---Screen-Modes.md
 #define SC_MODE 136
+//#define SC_MODE 8
 
 volatile SYSVAR *sv;
 

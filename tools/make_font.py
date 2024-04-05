@@ -2,39 +2,10 @@
 
 import argparse
 from PIL import Image
+import image_conv
 import os
 
 fontname = ""
-
-def convert_to_2222(image, filename):
-
-    width, height = image.size
-    pixel_depth = image.mode
-
-    print(f"Pixel Depth: {pixel_depth}")
-
-    # Extract pixel data
-    pixel_data = list(image.getdata())
-
-    # Convert pixel data to RGB2222 format
-    rgb2222_data = bytearray()
-    for pixel in pixel_data:
-        r, g, b, a = pixel
-        pixel_value = ((r >> 6) & 0x03 | (((g >> 6) & 0x03) << 2) | (((b >> 6) & 0x03) << 4) | (((a >> 6) & 0x03) << 6))
-        rgb2222_data.append(pixel_value)
-
-    # Save the RGB2222 data to a binary file
-    output_filename, _ = os.path.splitext(filename)
-    output_filename += ".222"
-    with open(output_filename, 'wb') as f:
-        f.write(b"NCOTB")
-        f.write(width.to_bytes(2, 'little'))
-        f.write(height.to_bytes(2, 'little'))
-        f.write((1).to_bytes(1, 'little'));
-        f.write(rgb2222_data)
-
-    print(f"RGB2222 data saved to '{output_filename}'")
-
 
 def get_filename_without_extension(file_path):
     base_name = os.path.basename(file_path)
@@ -52,13 +23,14 @@ def slice_image(input_image_path, output_directory, slice_width, slice_height):
         for x in range(0, width, slice_width):
             box = (x, y, x + slice_width, y + slice_height)
             slice = original_image.crop(box)
-            output_path = os.path.join(output_directory, f"{fontname}_{count:02}.png")  # Use count for naming
-            convert_to_2222(slice, output_path)
-            slice.save(output_path)
+            output_filename = os.path.join(output_directory, f"{fontname}_{count:02}.222")  # Use count for naming
+            image_data = image_conv.convert_imagedata_to_2222(slice)
+            with open(output_filename, 'wb') as f:
+                f.write(image_data.getvalue())
             count += 1  # Increment the count
 
     # Write a definition file to go with it
-    data_file = os.path.join(output_directory, f"{fontname}.dat");
+    data_file = os.path.join(output_directory, f"{fontname}.fon");
     with open(data_file, 'wb') as f:
         f.write(b"NCOTF")
         f.write(len(fontname).to_bytes(2, 'little'))  # How long the fontname is
@@ -77,7 +49,7 @@ def main():
 
     input_image_path = args.input_image
     fontname = get_filename_without_extension(input_image_path)
-    output_directory = f"{fontname}"
+    output_directory = f"font_{fontname}"
     slice_width = int(args.slice_width)
     slice_height = int(args.slice_height)
 

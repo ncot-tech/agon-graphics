@@ -1,11 +1,5 @@
 #include "xitoa.h"
 
-/**
- * C++ version 0.4 char* style "itoa":
- * Written by Lukás Chmela
- * Released under GPLv3.
- * Allocate char[32] and pass in for result to go into
-*/
 char* xitoa(int value, char* result, int base)
 {
     // check that the base if valid

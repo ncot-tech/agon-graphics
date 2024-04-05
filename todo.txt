@@ -1,1 +1,7 @@
+Finish loading tilemaps
+    - Images into bitmaps
+    - map data into a big array
+    - move all map drawing code into the new files
+    - have a function to set the scroll offset to move the screen around the map
 Code to switch screens when keyboard is used
+Make bmprint use the start_bitmap_id field in the struct - modify make_font.py to match

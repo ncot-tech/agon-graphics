@@ -6,13 +6,13 @@
 
 void load_font_def(char *font_def, font *font)
 {
-    uint16_t path_length = strlen(font_def) * 2 + 5;
+    uint16_t path_length = strlen(font_def) * 2 + 6;
     // We're making a path of "font_def/font_def.dat\0"
     char *filename = (char *)malloc(sizeof(char) * path_length);
     strcpy(filename, font_def);
     strcat(filename, "/");
     strcat(filename, font_def);
-    strcat(filename, ".dat");
+    strcat(filename, ".fon");
     uint8_t file = mos_fopen(filename, 0x01);
 	if (!file) {
         printf ("Can't open file %s\n", filename);
