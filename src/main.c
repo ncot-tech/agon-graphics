@@ -38,6 +38,15 @@ int main(void)
     define_screen(screen5_init, screen5_update, screen5_draw);
     define_screen(screen6_init, screen6_update, screen6_draw);
 
+    // Each screen's index is 1 less than its name, so screen 1 is id 0
+    // Here's what each screen does
+    // Screen 1 - Draws the colour palette
+    // Screen 2 - Draws some fancy rotating shapes
+    // Screen 3 - Mystify screensaver
+    // Screen 4 - Starfield screensaver
+    // Screen 5 - Moving logos demo thing
+    // Screen 6 - Scrolling tilemap
+
     set_current_screen(5);
 
     //putch(19); putch(0); putch(255); putch(255);putch(0);putch(0); 
