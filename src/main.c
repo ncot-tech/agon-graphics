@@ -1,6 +1,7 @@
 #include <agon/vdp_vdu.h>
 #include <agon/vdp_key.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <mos_api.h>
 #include "graphics.h"
 #include <math.h>
@@ -14,12 +15,12 @@
 #include "screen6.h"
 #include "keyboard.h"
 // https://github.com/AgonConsole8/agon-docs/blob/main/VDP---Screen-Modes.md
-//#define SC_MODE 136
-#define SC_MODE 8
+#define SC_MODE 136
+//#define SC_MODE 8
 
 volatile SYSVAR *sv;
 
-int main(void)
+int main(int argc, char **argv)
 {
     
     sv = vdp_vdu_init();
@@ -47,19 +48,32 @@ int main(void)
     // Screen 5 - Moving logos demo thing
     // Screen 6 - Scrolling tilemap
 
-    set_current_screen(5);
+    if (argc == 2) {
+        int current_screen = atoi(argv[1]);
+        if (current_screen < 6)
+            set_current_screen(current_screen);
+        else
+            set_current_screen(0);
+    } else
+        set_current_screen(4);
 
     //putch(19); putch(0); putch(255); putch(255);putch(0);putch(0); 
     while (1) {
         update_keys();
- //       vdp_clear_screen();
+        if (IS_KEY_PRESSED(KEY_ESC))
+            break;
 
         run_screens();
 
         waitvblank();
-//        flip_buffer();
+        flip_buffer();
     }
 
+    set_video_mode(0);
+    vdp_clear_screen();
+    vdp_logical_scr_dims( true );
+    vdp_cursor_enable( true );
+    
     return 0;
 }
 

@@ -79,6 +79,7 @@ int screen3_update(void) {
 }
 
 void screen3_draw(void) {
+    vdp_clear_screen();
     for (int j = 0; j < 3; j++) {
         for (int i = 0; i < 5; i++) {
             draw_line2(mystify[j].lines[i], mystify[j].colour);

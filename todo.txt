@@ -1,2 +1,3 @@
-Code to switch screens when keyboard is used
 Make bmprint use the start_bitmap_id field in the struct - modify make_font.py to match
+Make a proper way to exit, that flips buffers so we see printf text
+Loading screens / status text / etc

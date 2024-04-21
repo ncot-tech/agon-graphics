@@ -1,4 +1,5 @@
 obj/
 bin/
 */__pycache__
-*.222
+.222
+dist/

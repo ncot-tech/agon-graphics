@@ -83,6 +83,7 @@ void screen2_init(void) {
 }
 
 int screen2_update(void) {
+    vdp_clear_screen();
     for (int i = 0; i < 10; i++) {
         rotate_shape(shapes[i], angle);
     }

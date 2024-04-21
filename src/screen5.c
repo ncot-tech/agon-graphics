@@ -68,6 +68,7 @@ Point helloText = {SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
 vector2 textVect = {4,-6};
 int xoff = SCREEN_WIDTH;
 void screen5_draw(void) {
+    vdp_clear_screen();
     for (size_t i = 0; i < strlen(scrolltext); i++) {
         int x = xoff+(i*32);
         int y = SCREEN_WIDTH / 2 + (sin(x * 0.02) * 50);

@@ -29,6 +29,7 @@ int screen4_update(void) {
 }
 
 void screen4_draw(void) {
+    vdp_clear_screen();
     for (int i = 0; i < STARCOUNT; i++) {
         int x = SCREEN_WIDTH / 2 + (starfield[i].x * SCREEN_WIDTH / 2 / (2 * starfield[i].z));
         int y = SCREEN_HEIGHT / 2 + (starfield[i].y * SCREEN_HEIGHT / 2 / (2 * starfield[i].z));

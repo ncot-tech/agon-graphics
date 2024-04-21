@@ -16,6 +16,7 @@ uint16_t cx,ocx = 0;
 uint16_t cy,ocy = 0;
 void screen6_init(void) {
 
+    printf ("Loading tiles, please wait!");
     tilemap_load("tiles-conv/test-level.map", &map1);
 
     /*    ncotb_header header;

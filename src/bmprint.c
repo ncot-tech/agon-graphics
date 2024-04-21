@@ -67,6 +67,7 @@ uint8_t bm_load_font(char *font_def, font *font, uint16_t bitmap_id)
 			return 1;
 		}
 		assign_buffer_to_bitmap(bitmap_id + i,RGBA2222,image_header.width,image_header.height);
+                vdp_plot_bitmap(bitmap_id + i, 0,image_header.height);
 	}
 
     return 0;

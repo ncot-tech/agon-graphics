@@ -47,7 +47,7 @@ void tilemap_load(char *map_def, tilemap *map)
             return;
         }
         assign_buffer_to_bitmap(map->bitmap_start_id+tile_id,RGBA2222,header.width,header.height);
-     //   vdp_plot_bitmap(map->bitmap_start_id+tile_id, 0,map->tile_height);
+        vdp_plot_bitmap(map->bitmap_start_id+tile_id, 0,map->tile_height);
     }
 
     // Now allocate RAM for the tilemap itself
