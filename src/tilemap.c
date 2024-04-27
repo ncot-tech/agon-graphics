@@ -23,10 +23,10 @@ void tilemap_load(char *map_def, tilemap *map)
 
     mos_fread(file, (char *)map, 10);
 
-    //printf ("Read map header\n  width:%d\n  height:%d\n  tile width:%d\n  tile_height:%d\n",
-  //          map->map_width, map->map_height, map->tile_width, map->tile_height);
-//    printf ("There are %d tiles, bitmaps start with ID %d\n",
-    //        map->tile_count, map->bitmap_start_id);
+    printf ("Read map header\n  width:%d\n  height:%d\n  tile width:%d\n  tile_height:%d\n",
+            map->map_width, map->map_height, map->tile_width, map->tile_height);
+    printf ("There are %d tiles, bitmaps start with ID %d\n",
+            map->tile_count, map->bitmap_start_id);
 
     // Load each tile into the VDP
     for (int i = 0; i < map->tile_count; i++) {
@@ -44,6 +44,7 @@ void tilemap_load(char *map_def, tilemap *map)
             filename, &header);
         if (res != SUCCESS) {
             printf ("Failed to load %s\n", filename);
+            exit(1);
             return;
         }
         assign_buffer_to_bitmap(map->bitmap_start_id+tile_id,RGBA2222,header.width,header.height);

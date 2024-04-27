@@ -6,16 +6,9 @@
 
 void load_font_def(char *font_def, font *font)
 {
-    uint16_t path_length = strlen(font_def) * 2 + 6;
-    // We're making a path of "font_def/font_def.dat\0"
-    char *filename = (char *)malloc(sizeof(char) * path_length);
-    strcpy(filename, font_def);
-    strcat(filename, "/");
-    strcat(filename, font_def);
-    strcat(filename, ".fon");
-    uint8_t file = mos_fopen(filename, 0x01);
+    uint8_t file = mos_fopen(font_def, 0x01);
 	if (!file) {
-        printf ("Can't open file %s\n", filename);
+        printf ("Can't open file %s\n", font_def);
         exit(1);
 	}
 
@@ -39,35 +32,39 @@ void load_font_def(char *font_def, font *font)
 
     printf ("Font name is %s\n", font->font_name);
 
-    mos_fread(file, (char *)&font->char_count, 3);   // Read count, width, height
+    mos_fread(file, (char *)&font->char_count, 5);   // Read count, width, height, bitmap_id
 
-    printf ("Read %s which is %dx%d and contains %d chars\n",
-            font->font_name, font->char_width, font->char_height, font->char_count);
+    printf ("Read %s which is %dx%d and contains %d chars, starting at ID %d\n",
+            font->font_name, font->char_width, font->char_height, font->char_count, font->start_bitmap_id);
 }
 
-uint8_t bm_load_font(char *font_def, font *font, uint16_t bitmap_id)
+uint8_t bm_load_font(char *font_def, font *font)
 {
     load_font_def(font_def, font);
-   
-    font->start_bitmap_id = bitmap_id;
+
     bitmap_load_result res;
 
     ncotb_header image_header;
     
-    // We're making a path of "font_def/font_def_xx.222\0"
-    uint16_t path_length = strlen(font_def) * 2 + 9;
-    printf ("Path length is %d\n", path_length);
-
+    // Cut up the font_def to remove the .fon and then replace with
+    // the 3 digit count and .222
+    uint16_t path_length = strlen(font_def) + 4;
+    char *dot = strrchr(font_def, '.');
+    size_t basename_length = dot - font_def;
+    char *basename = (char *)malloc(sizeof(char) * basename_length);
+    strncpy(basename, font_def, basename_length);
     char *fontname = (char *)malloc(sizeof(char) * path_length);
+
 	for (int i = 0; i < font->char_count; i++) {
-		snprintf(fontname, path_length, "%s/%s_%02d.222", font_def, font_def, i);
-		res = load_bitmap_into_buffer(bitmap_id + i, fontname, &image_header);
+		snprintf(fontname, path_length, "%s_%03d.222", basename, i);
+        printf ("Loading %s\n", fontname);
+		res = load_bitmap_into_buffer(font->start_bitmap_id + i, fontname, &image_header);
 		if (res != SUCCESS) {
 			printf ("Failed to load %s\n", fontname);
 			return 1;
 		}
-		assign_buffer_to_bitmap(bitmap_id + i,RGBA2222,image_header.width,image_header.height);
-                vdp_plot_bitmap(bitmap_id + i, 0,image_header.height);
+		assign_buffer_to_bitmap(font->start_bitmap_id + i,RGBA2222,image_header.width,image_header.height);
+                vdp_plot_bitmap(font->start_bitmap_id + i, 0,image_header.height);
 	}
 
     return 0;

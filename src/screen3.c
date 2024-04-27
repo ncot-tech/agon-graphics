@@ -37,6 +37,7 @@ void draw_line2(line _line, int colour)
 }
 
 void screen3_init(void) {
+    change_screen_mode(136, false, true);
     for (int j = 0; j < 3; j++) {
         mystify[j].colour = 1 + (rand() % 64);
         mystify[j].lines[0].start.x = rand_between(200,1000);
@@ -85,5 +86,7 @@ void screen3_draw(void) {
             draw_line2(mystify[j].lines[i], mystify[j].colour);
         }
     }
+    waitvblank();
+    flip_buffer();
 }
 

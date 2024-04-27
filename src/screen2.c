@@ -77,13 +77,13 @@ void draw_shape(Shape shape, uint8_t colour) {
 
 // Define functions for Screen 1
 void screen2_init(void) {
+    change_screen_mode(136, false, true);
     for (int i = 0; i < 10; i++) {
         shapes[i] = make_shape(rand() % 7 + 3, (SCREEN_WIDTH / 2 - 600) + (rand() % 1200), (SCREEN_HEIGHT / 2 - 400) + (rand() % 800), rand() % 100 + 50);
     }
 }
 
 int screen2_update(void) {
-    vdp_clear_screen();
     for (int i = 0; i < 10; i++) {
         rotate_shape(shapes[i], angle);
     }
@@ -94,8 +94,11 @@ int screen2_update(void) {
 }
 
 void screen2_draw(void) {
+    vdp_clear_screen();
     for (int i = 0; i < 10; i++) {
         draw_shape(shapes[i], colour);
     }
+    waitvblank();
+    flip_buffer();
 }
 

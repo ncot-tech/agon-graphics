@@ -117,14 +117,15 @@ def main():
         converted_image = image_conv.convert_file_to_2222(input_directory + "/" + tile['source'])
         output_filename = get_filename_without_extension(tile['source']) + ".222"
         output_filepath = output_directory + "/" + output_filename
+        internal_filepath = "tiles/" + output_filename
 
         with open(output_filepath, 'wb') as f:
             f.write(converted_image.getvalue())
 
         # And write a mapping between tile ID and image filename into the map file we're making
         buff.write(tile['id'].to_bytes(2, 'little'))
-        buff.write(len(output_filepath).to_bytes(2, 'little'))  # How long the filename is
-        buff.write(output_filepath.encode('ascii')) # Not null terminated
+        buff.write(len(internal_filepath).to_bytes(2, 'little'))  # How long the filename is
+        buff.write(internal_filepath.encode('ascii')) # Not null terminated
 
     # Go through the map data
     for m in map_data['map_data']:

@@ -26,10 +26,7 @@ int main(int argc, char **argv)
     sv = vdp_vdu_init();
     if ( vdp_key_init() == -1 ) return 1;
 
-    set_video_mode(SC_MODE);
-    vdp_clear_screen();
-    vdp_logical_scr_dims( true );
-    vdp_cursor_enable( false );
+    
     init_keys();
     
     define_screen(screen1_init, screen1_update, screen1_draw);
@@ -55,18 +52,14 @@ int main(int argc, char **argv)
         else
             set_current_screen(0);
     } else
-        set_current_screen(4);
+        set_current_screen(5);
 
-    //putch(19); putch(0); putch(255); putch(255);putch(0);putch(0); 
     while (1) {
         update_keys();
         if (IS_KEY_PRESSED(KEY_ESC))
             break;
 
         run_screens();
-
-        waitvblank();
-        flip_buffer();
     }
 
     set_video_mode(0);

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <agon/vdp_vdu.h>
+#include "graphics.h"
 
 // Define a type for each screen
 struct Screen {
@@ -67,4 +69,12 @@ void run_screens() {
             current_screen->init();
         }
     }    
+}
+
+void change_screen_mode(uint8_t mode, uint8_t enable_cursor, uint8_t logical_screen)
+{
+    set_video_mode(mode);
+    vdp_clear_screen();
+    vdp_logical_scr_dims( logical_screen );
+    vdp_cursor_enable( enable_cursor );
 }

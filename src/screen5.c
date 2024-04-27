@@ -18,15 +18,17 @@ static font my_font;
 Point origin;
 
 void screen5_init(void) {
+    change_screen_mode(136, false, true);
+
     ncotb_header header;
-    bitmap_load_result res = load_bitmap_into_buffer(1, "ncot-logo.222", &header);
+    bitmap_load_result res = load_bitmap_into_buffer(1, "images/ncot-logo.222", &header);
     if (res != SUCCESS) {
-        printf ("Failed to load %s\n", "ncot-logo.222");
+        printf ("Failed to load %s\n", "images/ncot-logo.222");
         return;
     }
     assign_buffer_to_bitmap(1,RGBA2222,header.width,header.height);
 
-    res = load_bitmap_into_buffer(2, "rmc.222", &header);
+    res = load_bitmap_into_buffer(2, "images/rmc.222", &header);
     if (res != SUCCESS) {
         return;
     }
@@ -40,7 +42,7 @@ void screen5_init(void) {
         else logos[i].bitmap_id = 1;
     }
 
-    bm_load_font("08X08-F5", &my_font, 100);
+    bm_load_font("fonts/08X08-F5/08X08-F5.fon", &my_font);
     origin.x = 0;
     origin.y = 0;
 }
@@ -84,5 +86,8 @@ void screen5_draw(void) {
     helloText.y += textVect.y;
     if (helloText.x < 0 || helloText.x+(strlen("HELLO WORLD!") * 32) > SCREEN_WIDTH) textVect.x *= -1;
     if (helloText.y < 0 || helloText.y+32 > SCREEN_HEIGHT) textVect.y *= -1;
+
+    waitvblank();
+    flip_buffer();
 }
 

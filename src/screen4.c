@@ -12,6 +12,7 @@ vector3 starfield[STARCOUNT];
 int colours[] = {15, 63, 62, 7, 8};
 
 void screen4_init(void) {
+    change_screen_mode(136, false, true);
     for (int i = 0; i < STARCOUNT; i++) {
         starfield[i].x = (float)rand_between(-SCREEN_WIDTH, SCREEN_WIDTH);
         starfield[i].y = (float)rand_between(-SCREEN_HEIGHT, SCREEN_HEIGHT);
@@ -39,5 +40,7 @@ void screen4_draw(void) {
 
         plot_circle(x, y, size, colours[colour]);
     }
+    waitvblank();
+    flip_buffer();
 }
 

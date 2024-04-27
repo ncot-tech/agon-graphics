@@ -9,7 +9,7 @@ def get_filename_without_extension(file_path):
 
 # Check if the correct number of command line arguments is provided
 if len(sys.argv) != 3:
-    print("Usage: python script.py <input_image.png> <output_folder>")
+    print("Usage: python png2rgb.py <input_image.png> <output_folder>")
 else:
     # Get the input filename from the command line argument
     input_filename = sys.argv[1]
