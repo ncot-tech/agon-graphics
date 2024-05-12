@@ -33,8 +33,8 @@ uint8_t tilemap[] = {
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 };
-vector2 rmcVec;
-Point rmc;
+vector2 ncotVec;
+Point ncot;
 void screen6_init(void) {
     ncotb_header header;
     bitmap_load_result res = load_bitmap_into_buffer(1, "tile_0049.222", &header);
@@ -44,7 +44,7 @@ void screen6_init(void) {
     }
     assign_buffer_to_bitmap(1,RGBA2222,header.width,header.height);
 
-    res = load_bitmap_into_buffer(2, "rmc.222", &header);
+    res = load_bitmap_into_buffer(2, "ncot-logo.222", &header);
     if (res != SUCCESS) {
         return;
     }
@@ -52,18 +52,18 @@ void screen6_init(void) {
 
     bm_load_font("08X08-F5", &my_font, 100);
 
-    rmc.x = SCREEN_WIDTH / 2;
-    rmc.y = SCREEN_HEIGHT / 2;
-    rmcVec.x = 3;
-    rmcVec.y = -4;
+    ncot.x = SCREEN_WIDTH / 2;
+    ncot.y = SCREEN_HEIGHT / 2;
+    ncotVec.x = 3;
+    ncotVec.y = -4;
 }
 
 
 int screen6_update(void) {
-    rmc.x += rmcVec.x;
-    rmc.y += rmcVec.y;
-    if (rmc.x < 0 || rmc.x > SCREEN_WIDTH-200) rmcVec.x *= -1;
-    if (rmc.y < 0 || rmc.y > SCREEN_HEIGHT-200) rmcVec.y *= -1;
+    ncot.x += ncotVec.x;
+    ncot.y += ncotVec.y;
+    if (ncot.x < 0 || ncot.x > SCREEN_WIDTH-200) ncotVec.x *= -1;
+    if (ncot.y < 0 || ncot.y > SCREEN_HEIGHT-200) ncotVec.y *= -1;
     return -1; // Continue with the current screen
 }
 
@@ -76,7 +76,7 @@ void screen6_draw(void) {
         }
     }
     bm_printf(&my_font, 0+scrollAmount*4,SCREEN_HEIGHT-32, "HELLO WORLD!");
-    vdp_plot_bitmap(2, rmc.x+scrollAmount*4, rmc.y );
+    vdp_plot_bitmap(2, ncot.x+scrollAmount*4, ncot.y );
     if (scrollAmount > 0) {
         putch(23); putch(7); putch(3); putch(1); putch(scrollAmount);
 

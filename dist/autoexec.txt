@@ -1,0 +1,3 @@
+cd agon-graphics
+load agon-graphics.bin
+run

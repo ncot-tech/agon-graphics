@@ -9,7 +9,7 @@ COMPRESSED = NO
 CFLAGS = -Wall -Wextra -Oz
 CXXFLAGS = -Wall -Wextra -Oz
 
-EMULATOR_DIR=/home/james/Development/fab-agon-emulator
+EMULATOR_DIR=/home/james/fab-agon-emulator
 EMULATOR_BIN=fab-agon-emulator
 EMULATOR_FLAGS=--scale 2000
 EMULATOR_SDCARD=~/.agon-sdcard
