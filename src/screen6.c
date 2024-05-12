@@ -10,38 +10,12 @@
 
 tilemap map1;
 void screen6_init(void) {
-
     tilemap_load("tiles-conv/test-level.map", &map1);
-    /*    ncotb_header header;
-    bitmap_load_result res = load_bitmap_into_buffer(1, "tile_0049.222", &header);
-    if (res != SUCCESS) {
-        printf ("Failed to load %s\n", "ncot-logo.222");
-        return;
-    }
-    assign_buffer_to_bitmap(1,RGBA2222,header.width,header.height);
-
-    res = load_bitmap_into_buffer(2, "rmc.222", &header);
-    if (res != SUCCESS) {
-        return;
-    }
-    assign_buffer_to_bitmap(2, RGBA2222, header.width, header.height);
-
-    bm_load_font("08X08-F5", &my_font, 100);
-
-    rmc.x = SCREEN_WIDTH / 2;
-    rmc.y = SCREEN_HEIGHT / 2;
-    rmcVec.x = 3;
-    rmcVec.y = -4;*/
 }
 
 
 int screen6_update(void) {
     
-/*    rmc.x += rmcVec.x;
-    rmc.y += rmcVec.y;
-    if (rmc.x < 0 || rmc.x > SCREEN_WIDTH-200) rmcVec.x *= -1;
-    if (rmc.y < 0 || rmc.y > SCREEN_HEIGHT-200) rmcVec.y *= -1;
-    */
     return -1; // Continue with the current screen
 }
 
